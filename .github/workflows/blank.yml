@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install xcb
+      run: apt install xcb
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.3.0
       with:
