@@ -4,15 +4,12 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macOS-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Install xcb
-      run: sudo apt install libxcb-xinerama0
+      run: sudo apt install libxcb1
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.3.0
       with:
