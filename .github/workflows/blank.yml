@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install xcb
-      run: sudo apt install libxcb1 libxcb-*
+      run: sudo apt install xcb xcb-proto libxcb1 libxcb-*
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.3.0
       with:
@@ -19,4 +19,4 @@ jobs:
     - name: Run make
       run: make
     - name: Run tests
-      run: ./tests/tests
+      run: QT_DEBUG_PLUGINS=1 ./tests/tests
