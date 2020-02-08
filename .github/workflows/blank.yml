@@ -17,4 +17,4 @@ jobs:
     - name: Run make
       run: make
     - name: Run tests
-      run: QT_DEBUG_PLUGINS=1 ./tests/tests
+      run: ./tests/tests.app/Contents/MacOS/tests
