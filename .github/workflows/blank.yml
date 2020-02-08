@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install xcb
-      run: sudo apt install xcb xcb-proto libxcb1 libxcb-*
+      run: sudo apt install libxkbcommon-x11-0
     - name: Install Qt
       uses: jurplel/install-qt-action@v2.3.0
       with:
