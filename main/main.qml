@@ -5,12 +5,13 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("CoronaVirus")
 
     RegularPolygon {
         center: Qt.point(parent.width/2, parent.height/2)
-        radius: 50
-        sides: 5
+        radius: 200
+        sides: 3
         color: "blue"
+        onTapped: console.log("tapped")
     }
 }
