@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+#include "regularpolygonmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +18,10 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
+    RegularPolygonModel model;
+    model.addPolygon({{250, 250}, 200, 7});
+    engine.rootContext()->setContextProperty("polygons", &model);
 
     return app.exec();
 }

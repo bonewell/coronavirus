@@ -7,11 +7,17 @@ Window {
     height: 480
     title: qsTr("CoronaVirus")
 
-    RegularPolygon {
-        center: Qt.point(parent.width/2, parent.height/2)
-        radius: 200
-        sides: 3
-        color: "blue"
-        onTapped: console.log("tapped")
+    Repeater {
+        model: polygons
+
+        RegularPolygon {
+            center: model.center
+            radius: model.radius
+            sides: model.sides
+            color: "blue"
+            onTapped: {
+                console.log("tapped");
+            }
+        }
     }
 }

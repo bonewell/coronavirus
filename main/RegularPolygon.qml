@@ -26,7 +26,8 @@ Shape {
 
     /**
      * Calculates distance between the center and a point of the side where
-     * the ray crosses the side.
+     * a ray crosses the side.
+     * The ray begins in center and goes through a point of the event of the mouse.
      */
     function limit(X, Y) {
         let angle = 2 * Math.PI / sides;
