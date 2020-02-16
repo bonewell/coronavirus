@@ -1,25 +1,5 @@
 #include "regularpolygonmodel.h"
 
-RegularPolygon::RegularPolygon(QPointF center, qreal radius, int sides)
-    : m_center{center}, m_radius{radius}, m_sides{sides}
-{
-}
-
-QPointF RegularPolygon::center() const
-{
-    return m_center;
-}
-
-qreal RegularPolygon::radius() const
-{
-    return m_radius;
-}
-
-int RegularPolygon::sides() const
-{
-    return m_sides;
-}
-
 RegularPolygonModel::RegularPolygonModel(QObject *parent)
     : QAbstractItemModel{parent}
 {
@@ -30,6 +10,18 @@ void RegularPolygonModel::addPolygon(RegularPolygon const& polygon)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_polygons << polygon;
     endInsertRows();
+}
+
+RegularPolygon const& RegularPolygonModel::getPolygon(int row)
+{
+    return m_polygons.at(row);
+}
+
+void RegularPolygonModel::killPolygon(int row)
+{
+    beginRemoveRows(QModelIndex(), row, row);
+    m_polygons.removeAt(row);
+    endRemoveRows();
 }
 
 int RegularPolygonModel::rowCount(QModelIndex const&) const

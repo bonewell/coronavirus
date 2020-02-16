@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    cpptests \
     main \
-    tests
+    qmltests

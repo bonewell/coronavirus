@@ -3,7 +3,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickWindow>
 
+#include "game.h"
+#include "polygonfactory.h"
 #include "regularpolygonmodel.h"
 
 int main(int argc, char *argv[])
@@ -44,16 +47,32 @@ int main(int argc, char *argv[])
     qDebug() << "min=" << limits.first;
     qDebug() << "max=" << limits.second;
 
+    PolygonFactory factory{radius, limits};
     RegularPolygonModel model;
-    model.addPolygon({{250, 250}, radius, limits.second});
+    Game game{factory, model};
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
+                     &app, [url](QObject *obj, QUrl const& objUrl) {
+        if (!obj && url == objUrl) {
             QCoreApplication::exit(-1);
+        }
     }, Qt::QueuedConnection);
+
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &game, [&game, quantity](QObject* object, QUrl const&) {
+        auto window = qobject_cast<QQuickWindow*>(object);
+        QObject::connect(window, &QQuickWindow::heightChanged,
+                         window, [&game, window] (int) {
+            game.setSize(window->size());
+        });
+        QObject::connect(window, &QQuickWindow::widthChanged,
+                         window, [&game, window] (int) {
+            game.setSize(window->size());
+        });
+        game.start(quantity);
+    });
     engine.rootContext()->setContextProperty("polygons", &model);
     engine.load(url);
 

@@ -16,7 +16,7 @@ Window {
             sides: model.sides
             color: "blue"
             onTapped: {
-                console.log("tapped");
+                polygons.infect(index);
             }
         }
     }
