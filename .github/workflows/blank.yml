@@ -19,4 +19,4 @@ jobs:
     - name: Run QML tests
       run: ./qmltests/qmltests.app/Contents/MacOS/qmltests
     - name: Run C++ tests
-      run: ./cpptests/cpptests.app/Contents/MacOS/cpptests
+      run: ./cpptests/cpptests
