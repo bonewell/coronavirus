@@ -42,6 +42,7 @@ Shape {
         return Math.pow(X, 2) + Math.pow(Y, 2) <= Math.pow(limit(X, Y), 2)
     }
 
+    antialiasing: true
     x: center.x - radius
     y: center.y - radius
     width: 2 * radius
@@ -58,7 +59,7 @@ Shape {
         propagateComposedEvents: true
         onClicked: {
             if (inside(mouse)) {
-                parent.tapped();
+                root.tapped();
             }
             else {
                 mouse.accepted = false;

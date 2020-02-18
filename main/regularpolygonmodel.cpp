@@ -40,12 +40,16 @@ QVariant RegularPolygonModel::data(QModelIndex const& index, int role) const
         return QVariant();
 
     const auto& polygon = m_polygons[index.row()];
-    if (role == CenterRole)
+    if (role == HometownRole)
+        return polygon.hometown();
+    else if (role == CenterRole)
         return polygon.center();
     else if (role == RadiusRole)
         return polygon.radius();
     else if (role == SidesRole)
         return polygon.sides();
+    else if (role == LifetimeRole)
+        return polygon.lifetime();
     return QVariant();
 }
 
@@ -61,8 +65,10 @@ QModelIndex RegularPolygonModel::parent(QModelIndex const&) const
 
 QHash<int, QByteArray> RegularPolygonModel::roleNames() const {
     QHash<int, QByteArray> roles;
+    roles[HometownRole] = "hometown";
     roles[CenterRole] = "center";
     roles[RadiusRole] = "radius";
     roles[SidesRole] = "sides";
+    roles[LifetimeRole] = "lifetime";
     return roles;
 }

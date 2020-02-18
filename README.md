@@ -14,4 +14,6 @@ Visit http://bonewell.github.io to run this project in browser.
 |Parse command line arguments|66|
 |Create RegularPolygon factory, Game and C++ unit tests|230|
 |WebAssembly|90|
-|Total|943|
+|Animation|70|
+|Use lifetime|25|
+|Total|1038|

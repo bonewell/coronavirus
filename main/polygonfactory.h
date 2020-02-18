@@ -12,10 +12,11 @@ class PolygonFactory {
 public:
     using SideLimits = std::pair<int, int>;
 
-    PolygonFactory(qreal radius, SideLimits const& limits);
-    RegularPolygon create(QPointF const& location) const;
+    PolygonFactory(int lifetime, qreal radius, SideLimits const& limits);
+    RegularPolygon create(QPointF const& hometown, QPointF const& location) const;
 
 private:
+    int m_lifetime;
     qreal m_radius;
     int m_min;
     int m_max;

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSizeF>
+#include <QPointF>
 
 class PolygonFactory;
 class RegularPolygonModel;
@@ -16,7 +17,7 @@ public:
                   QObject *parent = nullptr);
 
 public:
-    void start(int quantity) { create(quantity); }
+    void start(int quantity) { create({0, 0}, quantity); }
 
 public slots:
     void setSize(QSizeF size);
@@ -25,7 +26,7 @@ private slots:
     void update(int row);
 
 private:
-    void create(int quantity);
+    void create(QPointF const& hometown, int quantity);
     PolygonFactory const& m_factory;
     RegularPolygonModel & m_model;
     QSizeF m_size;

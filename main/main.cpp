@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     parser.addOptions({
         {{"q", "quantity"}, "Quantity of the polygons on start. Default is 1", "quantity", "1"},
         {{"r", "radius"}, "Size of the polygon in pixels. Default is 50", "radius", "50"},
-        {{"l", "lifetime"}, "Lifetime of the polygon in milliseconds. Default is 1000", "lifetime", "1000"},
+        {{"l", "lifetime"}, "Lifetime of the polygon in milliseconds. Default is 10000", "lifetime", "10000"},
     });
     parser.addPositionalArgument("min", "Minimum number of the sides of the polygon");
     parser.addPositionalArgument("max", "Maximum number of the sides of the polygon");
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     qDebug() << "min=" << limits.first;
     qDebug() << "max=" << limits.second;
 
-    PolygonFactory factory{radius, limits};
+    PolygonFactory factory{lifetime, radius, limits};
     RegularPolygonModel model;
     Game game{factory, model};
 

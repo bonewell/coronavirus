@@ -12,9 +12,11 @@ class RegularPolygonModel : public QAbstractItemModel
     Q_OBJECT
 public:
     enum RegularPolygonRoles {
-        CenterRole = Qt::UserRole + 1,
+        HometownRole = Qt::UserRole + 1,
+        CenterRole,
         RadiusRole,
-        SidesRole
+        SidesRole,
+        LifetimeRole
     };
 
     explicit RegularPolygonModel(QObject* parent = nullptr);
@@ -30,6 +32,7 @@ public:
 
 signals:
     void infect(int row);
+    void kill(int row);
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
