@@ -1,4 +1,6 @@
 # CoronaVirus
+![CI](https://github.com/bonewell/coronavirus/workflows/CI/badge.svg)
+
 This project is test task
 
 Visit http://bonewell.github.io to run this project in browser.
