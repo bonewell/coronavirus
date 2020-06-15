@@ -53,8 +53,8 @@ int main(int argc, char *argv[])
     qDebug() << "max=" << limits.second;
 
     PolygonFactory factory{lifetime, radius, limits};
-    RegularPolygonModel model;
-    Game game{factory, model};
+    RegularPolygonModel poligons{factory};
+    Game game{poligons};
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         });
         game.start(quantity);
     });
-    engine.rootContext()->setContextProperty("polygons", &model);
+    engine.rootContext()->setContextProperty("polygons", &poligons);
     engine.load(url);
 
     return app.exec();

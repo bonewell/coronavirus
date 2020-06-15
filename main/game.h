@@ -5,15 +5,13 @@
 #include <QSizeF>
 #include <QPointF>
 
-class PolygonFactory;
 class RegularPolygonModel;
 
 class Game : public QObject
 {
     Q_OBJECT
 public:
-    explicit Game(PolygonFactory const& factory,
-                  RegularPolygonModel& mode,
+    explicit Game(RegularPolygonModel& mode,
                   QObject *parent = nullptr);
 
 public:
@@ -28,7 +26,6 @@ private slots:
 
 private:
     void create(QPointF const& hometown, int quantity);
-    PolygonFactory const& m_factory;
     RegularPolygonModel & m_polygons;
     QSizeF m_size;
     int m_amount_recovered;
