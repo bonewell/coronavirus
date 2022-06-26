@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationName("CoronaVirus");
     QGuiApplication::setApplicationVersion("1.0");
 
+#ifndef Q_OS_WASM
     QCommandLineParser parser;
     parser.setApplicationDescription("Simulates live of the viruses");
     parser.addHelpOption();
@@ -40,6 +41,12 @@ int main(int argc, char *argv[])
 
     if (limits.first < 3) qFatal("min should be greater 3");
     if (limits.first > limits.second) qFatal("min should be less max");
+#else
+    int quantity = 1;
+    qreal radius = 50;
+    int lifetime = 10000;
+    auto limits = std::make_pair(3, 9);
+#endif  // Q_OS_WASM
 
     qDebug() << "quantity=" << quantity;
     qDebug() << "radius=" << radius;

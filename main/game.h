@@ -23,13 +23,16 @@ public slots:
     void setSize(QSizeF size);
 
 private slots:
-    void update(int row);
+    void infected(int row);
+    void killed(int row);
 
 private:
     void create(QPointF const& hometown, int quantity);
     PolygonFactory const& m_factory;
     RegularPolygonModel & m_model;
     QSizeF m_size;
+    int m_amount_recovered;
+    int m_amount_infected;
 };
 
 #endif // GAME_H

@@ -2,10 +2,15 @@ import QtQuick 2.14
 import QtQuick.Window 2.14
 
 Window {
+    id: root
     visible: true
     width: 640
     height: 480
     title: qsTr("CoronaVirus")
+
+    property int amount_died: 0
+    property int amount_recovered: 0
+    property int amount_infected: 1
 
     function randomRotation(max) {
         return Math.floor(Math.random() * Math.floor(max));
@@ -25,8 +30,11 @@ Window {
                 to: "red"
                 duration: model.lifetime
                 onFinished: {
-                    died.action = function () { polygons.kill(index) };
-                    died.start();
+                    extinction.action = function () {
+                        root.amount_died += 1;
+                        polygons.kill(index);
+                    };
+                    extinction.start();
                 }
             }
 
@@ -49,7 +57,7 @@ Window {
             }
 
             PropertyAnimation {
-                id: died
+                id: extinction
                 property var action
                 target: patient
                 properties: "radius"
@@ -59,11 +67,32 @@ Window {
             }
 
             onTapped: {
-                died.action = function () { polygons.infect(index) };
-                died.start();
+                extinction.action = function () {
+                    root.amount_recovered += 1;
+                    root.amount_infected += sides
+                    polygons.infect(index);
+                };
+                extinction.start();
             }
+        }
+    }
 
-//            Component.onCompleted: console.log(model.hometown)
+    Column {
+        visible: !crowd.count
+        Text {
+            id: died
+            text: "Died: " + root.amount_died
+            font.pointSize: 22
+        }
+        Text {
+            id: recovered
+            text: "Recovered: " + root.amount_recovered
+            font.pointSize: 22
+        }
+        Text {
+            id: total
+            text: "Total: " + root.amount_infected
+            font.pointSize: 22
         }
     }
 }

@@ -22,7 +22,7 @@ public:
     explicit RegularPolygonModel(QObject* parent = nullptr);
     void addPolygon(RegularPolygon const& polygon);
     RegularPolygon const& getPolygon(int row);
-    void killPolygon(int row);
+    void removePolygon(int row);
 
     int rowCount(QModelIndex const& parent = QModelIndex()) const override;
     int columnCount(QModelIndex const& parent = QModelIndex()) const override;

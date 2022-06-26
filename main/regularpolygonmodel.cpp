@@ -17,7 +17,7 @@ RegularPolygon const& RegularPolygonModel::getPolygon(int row)
     return m_polygons.at(row);
 }
 
-void RegularPolygonModel::killPolygon(int row)
+void RegularPolygonModel::removePolygon(int row)
 {
     beginRemoveRows(QModelIndex(), row, row);
     m_polygons.removeAt(row);

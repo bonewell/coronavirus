@@ -57,7 +57,7 @@ Shape {
     MouseArea {
         anchors.fill: parent
         propagateComposedEvents: true
-        onClicked: {
+        onClicked: (mouse) => {
             if (inside(mouse)) {
                 root.tapped();
             }
