@@ -40,7 +40,7 @@ void Game::infected(int row)
     auto hometown = m_model.getPolygon(row).center();
     auto sides = m_model.getPolygon(row).sides();
     m_model.removePolygon(row);
-    create(hometown, sides);
+    create(hometown, sides - 2); // min sides is 3
 }
 
 void Game::killed(int row)

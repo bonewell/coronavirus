@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     parser.addOptions({
         {{"q", "quantity"}, "Quantity of the polygons on start. Default is 1", "quantity", "1"},
         {{"r", "radius"}, "Size of the polygon in pixels. Default is 50", "radius", "50"},
-        {{"l", "lifetime"}, "Lifetime of the polygon in milliseconds. Default is 10000", "lifetime", "10000"},
+        {{"l", "lifetime"}, "Lifetime of the polygon in seconds. Default is 10", "lifetime", "10"},
     });
     parser.addPositionalArgument("min", "Minimum number of the sides of the polygon");
     parser.addPositionalArgument("max", "Maximum number of the sides of the polygon");
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     auto quantity = parser.value("quantity").toInt();
     auto radius = parser.value("radius").toDouble();
-    auto lifetime = parser.value("lifetime").toInt();
+    auto lifetime = parser.value("lifetime").toInt() * 1000;
     auto strings = parser.positionalArguments();
 
     if (strings.length() < 2) qFatal("min and max should be specified");
@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
 #else
     int quantity = 1;
     qreal radius = 50;
-    int lifetime = 10000;
-    auto limits = std::make_pair(3, 9);
+    int lifetime = 15 * 1000;
+    auto limits = std::make_pair(3, 5);
 #endif  // Q_OS_WASM
 
     qDebug() << "quantity=" << quantity;

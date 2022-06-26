@@ -23,6 +23,7 @@ Window {
 
         RegularPolygon {
             id: patient
+            z: -index
             sides: model.sides
 
             ColorAnimation on color {
@@ -69,7 +70,7 @@ Window {
             onTapped: {
                 extinction.action = function () {
                     root.amount_recovered += 1;
-                    root.amount_infected += sides
+                    root.amount_infected += sides - 2; // min sides is 3
                     polygons.infect(index);
                 };
                 extinction.start();
@@ -93,6 +94,12 @@ Window {
             id: total
             text: "Total: " + root.amount_infected
             font.pointSize: 22
+        }
+        Text {
+            id: win
+            text: root.amount_recovered > root.amount_died ? "You won!" : "You lose!"
+            color: root.amount_recovered > root.amount_died ? "green" : "red"
+            font.pointSize: 32
         }
     }
 }
