@@ -1,23 +1,23 @@
 #include "regularpolygonmodel.h"
 
 RegularPolygonModel::RegularPolygonModel(QObject *parent)
-    : QAbstractItemModel{parent}
+    : QAbstractListModel{parent}
 {
 }
 
-void RegularPolygonModel::addPolygon(RegularPolygon const& polygon)
+void RegularPolygonModel::add(RegularPolygon const& polygon)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_polygons << polygon;
     endInsertRows();
 }
 
-RegularPolygon const& RegularPolygonModel::getPolygon(int row)
+RegularPolygon const& RegularPolygonModel::get(int row)
 {
     return m_polygons.at(row);
 }
 
-void RegularPolygonModel::removePolygon(int row)
+void RegularPolygonModel::remove(int row)
 {
     beginRemoveRows(QModelIndex(), row, row);
     m_polygons.removeAt(row);
@@ -27,11 +27,6 @@ void RegularPolygonModel::removePolygon(int row)
 int RegularPolygonModel::rowCount(QModelIndex const&) const
 {
     return m_polygons.count();
-}
-
-int RegularPolygonModel::columnCount(QModelIndex const&) const
-{
-    return 0;
 }
 
 QVariant RegularPolygonModel::data(QModelIndex const& index, int role) const
@@ -51,11 +46,6 @@ QVariant RegularPolygonModel::data(QModelIndex const& index, int role) const
     else if (role == LifetimeRole)
         return polygon.lifetime();
     return QVariant();
-}
-
-QModelIndex RegularPolygonModel::index(int row, int column, QModelIndex const&) const
-{
-    return createIndex(row, column);
 }
 
 QModelIndex RegularPolygonModel::parent(QModelIndex const&) const

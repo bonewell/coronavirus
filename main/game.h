@@ -29,7 +29,7 @@ private slots:
 private:
     void create(QPointF const& hometown, int quantity);
     PolygonFactory const& m_factory;
-    RegularPolygonModel & m_model;
+    RegularPolygonModel & m_polygons;
     QSizeF m_size;
     int m_amount_recovered;
     int m_amount_infected;

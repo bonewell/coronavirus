@@ -1,13 +1,13 @@
 #ifndef REGULARPOLYGONMODEL_H
 #define REGULARPOLYGONMODEL_H
 
-#include <QAbstractItemModel>
+#include <QAbstractListModel>
 #include <QByteArray>
 #include <QHash>
 
 #include "regularpolygon.h"
 
-class RegularPolygonModel : public QAbstractItemModel
+class RegularPolygonModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
@@ -20,14 +20,12 @@ public:
     };
 
     explicit RegularPolygonModel(QObject* parent = nullptr);
-    void addPolygon(RegularPolygon const& polygon);
-    RegularPolygon const& getPolygon(int row);
-    void removePolygon(int row);
+    void add(RegularPolygon const& polygon);
+    RegularPolygon const& get(int row);
+    void remove(int row);
 
     int rowCount(QModelIndex const& parent = QModelIndex()) const override;
-    int columnCount(QModelIndex const& parent = QModelIndex()) const override;
     QVariant data(QModelIndex const& index, int role = Qt::DisplayRole) const override;
-    QModelIndex index(int row, int column, QModelIndex const& parent = QModelIndex()) const override;
     QModelIndex parent(QModelIndex const& child) const override;
 
 signals:

@@ -11,8 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
     QGuiApplication::setApplicationName("CoronaVirus");
     QGuiApplication::setApplicationVersion("1.0");
@@ -44,7 +42,7 @@ int main(int argc, char *argv[])
 #else
     int quantity = 1;
     qreal radius = 50;
-    int lifetime = 15 * 1000;
+    int lifetime = 5 * 1000;
     auto limits = std::make_pair(3, 5);
 #endif  // Q_OS_WASM
 
