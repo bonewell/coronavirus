@@ -2,10 +2,12 @@
 
 #include <random>
 
+#include "polygonfactory.h"
 #include "regularpolygonmodel.h"
 
-Game::Game(RegularPolygonModel& model, QObject *parent)
+Game::Game(PolygonFactory const& factory, RegularPolygonModel& model, QObject *parent)
     : QObject(parent),
+      m_factory{factory},
       m_polygons{model},
       m_size{640.0, 480.0},
       m_amount_recovered{0},

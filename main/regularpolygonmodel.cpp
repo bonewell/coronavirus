@@ -1,10 +1,7 @@
 #include "regularpolygonmodel.h"
 
-#include "polygonfactory.h"
-
-RegularPolygonModel::RegularPolygonModel(PolygonFactory const& factory,
-                                         QObject *parent)
-    : QAbstractListModel{parent}, m_factory{factory}
+RegularPolygonModel::RegularPolygonModel(QObject *parent)
+    : QAbstractListModel{parent}
 {
 }
 
@@ -13,8 +10,6 @@ void RegularPolygonModel::add(RegularPolygon const& polygon)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_polygons << polygon;
     endInsertRows();
-
-//    rowCount(), rowCount()
 }
 
 RegularPolygon const& RegularPolygonModel::get(int row)
@@ -24,7 +19,9 @@ RegularPolygon const& RegularPolygonModel::get(int row)
 
 void RegularPolygonModel::remove(int row)
 {
-    removeRows(row, 1);
+    beginRemoveRows(QModelIndex(), row, row);
+    m_polygons.removeAt(row);
+    endRemoveRows();
 }
 
 int RegularPolygonModel::rowCount(QModelIndex const&) const
@@ -51,22 +48,9 @@ QVariant RegularPolygonModel::data(QModelIndex const& index, int role) const
     return QVariant();
 }
 
-bool RegularPolygonModel::insertRows(int row, int count, QModelIndex const& parent)
+QModelIndex RegularPolygonModel::parent(QModelIndex const&) const
 {
-    beginInsertRows(parent, row, row + count - 1);
-    m_polygons << polygon;
-    endInsertRows();
-    return true;
-}
-
-bool RegularPolygonModel::removeRows(int row, int count, QModelIndex const& parent)
-{
-    auto begin = m_polygons.begin() + row;
-    auto end = begin + count;
-    beginRemoveRows(parent, row, row + count - 1);
-    m_polygons.erase(begin, end);
-    endRemoveRows();
-    return true;
+    return {};
 }
 
 QHash<int, QByteArray> RegularPolygonModel::roleNames() const {
