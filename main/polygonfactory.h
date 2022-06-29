@@ -15,6 +15,7 @@ public:
     PolygonFactory(int lifetime, qreal radius, SideLimits const& limits);
     RegularPolygon create(QPointF const& hometown, QPointF const& location) const;
 
+    qreal radiusOfPolygon() const { return m_radius; }
 private:
     int m_lifetime;
     qreal m_radius;

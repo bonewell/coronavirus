@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <QObject>
-#include <QSizeF>
+#include <QRect>
 #include <QPointF>
 
 class PolygonFactory;
@@ -20,7 +20,7 @@ public:
     void start(int quantity) { create({0, 0}, quantity); }
 
 public slots:
-    void setSize(QSizeF size);
+    void setSize(QSize const& size);
 
 private slots:
     void infected(int row);
@@ -30,7 +30,7 @@ private:
     void create(QPointF const& hometown, int quantity);
     PolygonFactory const& m_factory;
     RegularPolygonModel & m_polygons;
-    QSizeF m_size;
+    QRectF m_box;
     int m_amount_recovered;
     int m_amount_infected;
 };

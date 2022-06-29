@@ -26,7 +26,7 @@ void RegularPolygonModel::remove(int row)
 
 int RegularPolygonModel::rowCount(QModelIndex const&) const
 {
-    return m_polygons.count();
+    return static_cast<int>(m_polygons.count());
 }
 
 QVariant RegularPolygonModel::data(QModelIndex const& index, int role) const

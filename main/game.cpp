@@ -9,19 +9,20 @@ Game::Game(PolygonFactory const& factory, RegularPolygonModel& model, QObject *p
     : QObject(parent),
       m_factory{factory},
       m_polygons{model},
-      m_size{640.0, 480.0},
+      m_box{0.0, 0.0, 640.0, 480.0},
       m_amount_recovered{0},
       m_amount_infected{0}
 {
     connect(&m_polygons, &RegularPolygonModel::infect, this, &Game::infected);
     connect(&m_polygons, &RegularPolygonModel::kill, this, &Game::killed);
+    setSize({640, 480});
 }
 
 void Game::create(QPointF const& hometown, int quantity)
 {
     std::random_device generator{};
-    std::uniform_real_distribution<> x{0.0, m_size.width()};
-    std::uniform_real_distribution<> y{0.0, m_size.height()};
+    std::uniform_real_distribution<> x{m_box.x(), m_box.width()};
+    std::uniform_real_distribution<> y{m_box.y(), m_box.height()};
 
     m_amount_infected += quantity;
     while (quantity--) {
@@ -29,9 +30,12 @@ void Game::create(QPointF const& hometown, int quantity)
     }
 }
 
-void Game::setSize(QSizeF size)
+void Game::setSize(QSize const& size)
 {
-    m_size = std::move(size);
+    auto radius = m_factory.radiusOfPolygon();
+    QPointF left_top{radius, radius};
+    QPointF bottom_right{size.width() - radius, size.height() - radius};
+    m_box = QRectF{left_top, bottom_right};
 }
 
 void Game::infected(int row)
