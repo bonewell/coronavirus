@@ -12,7 +12,8 @@ class Game : public QObject
 {
     Q_OBJECT
 public:
-    explicit Game(PolygonFactory const& factory,
+    explicit Game(int quantity,
+                  PolygonFactory const& factory,
                   RegularPolygonModel& mode,
                   QObject *parent = nullptr);
 
@@ -28,6 +29,7 @@ private slots:
 
 private:
     void create(QPointF const& hometown, int quantity);
+    int m_quantity;
     PolygonFactory const& m_factory;
     RegularPolygonModel & m_polygons;
     QRectF m_box;

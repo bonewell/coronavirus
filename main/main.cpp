@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
     PolygonFactory factory{lifetime, radius, limits};
     RegularPolygonModel model;
-    Game game{factory, model};
+    Game game{quantity, factory, model};
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &game, [&game, quantity](QObject* object, QUrl const&) {
+                     &game, [&game](QObject* object, QUrl const&) {
         auto window = qobject_cast<QQuickWindow*>(object);
         QObject::connect(window, &QQuickWindow::heightChanged,
                          window, [&game, window] (int) {
@@ -76,7 +76,6 @@ int main(int argc, char *argv[])
                          window, [&game, window] (int) {
             game.setSize(window->size());
         });
-        game.start(quantity);
     });
     engine.rootContext()->setContextProperty("polygons", &model);
     engine.load(url);

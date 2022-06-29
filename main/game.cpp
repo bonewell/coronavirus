@@ -5,8 +5,9 @@
 #include "polygonfactory.h"
 #include "regularpolygonmodel.h"
 
-Game::Game(PolygonFactory const& factory, RegularPolygonModel& model, QObject *parent)
+Game::Game(int quantity, PolygonFactory const& factory, RegularPolygonModel& model, QObject *parent)
     : QObject(parent),
+      m_quantity{quantity},
       m_factory{factory},
       m_polygons{model},
       m_box{0.0, 0.0, 640.0, 480.0},
@@ -41,10 +42,15 @@ void Game::setSize(QSize const& size)
 void Game::infected(int row)
 {
     m_amount_recovered += 1;
-    auto hometown = m_polygons.get(row).center();
-    auto sides = m_polygons.get(row).sides();
-    m_polygons.remove(row);
-    create(hometown, sides - 2); // min sides is 3
+    if (row != -1) {
+        auto hometown = m_polygons.get(row).center();
+        auto sides = m_polygons.get(row).sides();
+        m_polygons.remove(row);
+        create(hometown, sides - 2); // min sides is 3
+    }
+    else {
+        start(m_quantity);
+    }
 }
 
 void Game::killed(int row)

@@ -10,7 +10,7 @@ Window {
 
     property int amount_died: 0
     property int amount_recovered: 0
-    property int amount_infected: 1
+    property int amount_infected: 0
 
     function randomRotation(max) {
         return Math.floor(Math.random() * Math.floor(max));
@@ -18,8 +18,10 @@ Window {
 
     Repeater {
         id: crowd
-        model: polygons
+
         readonly property real duration: 500
+
+        model: polygons
 
         RegularPolygon {
             id: patient
@@ -78,28 +80,29 @@ Window {
         }
     }
 
-    Column {
+    Score {
+        visible: !crowd.count && root.amount_infected
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        died: root.amount_died
+        recovered: root.amount_recovered
+        total: root.amount_infected
+    }
+
+    Button {
+        id: button
         visible: !crowd.count
-        Text {
-            id: died
-            text: "Died: " + root.amount_died
-            font.pointSize: 22
-        }
-        Text {
-            id: recovered
-            text: "Recovered: " + root.amount_recovered
-            font.pointSize: 22
-        }
-        Text {
-            id: total
-            text: "Total: " + root.amount_infected
-            font.pointSize: 22
-        }
-        Text {
-            id: win
-            text: root.amount_recovered > root.amount_died ? "You won!" : "You lose!"
-            color: root.amount_recovered > root.amount_died ? "green" : "red"
-            font.pointSize: 32
+        anchors.centerIn: parent
+        padding: 20
+        color: "green"
+        border.color: "lightgreen"
+        text: "Play"
+
+        onTapped: {
+            root.amount_died = 0;
+            root.amount_recovered = 0
+            root.amount_infected = 1
+            polygons.infect(-1)
         }
     }
 }

@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>RegularPolygon.qml</file>
+        <file>Button.qml</file>
+        <file>Score.qml</file>
     </qresource>
 </RCC>
